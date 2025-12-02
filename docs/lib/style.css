@@ -1,0 +1,76 @@
+/* Reset + fuente global */
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body { height:100%; }
+body {
+  background:#0b0d10;
+  color:#b1f1a3;
+  font-family:'Fira Code', monospace;
+  line-height:1.6;
+  display:flex;
+  flex-direction:column;
+  overflow-x:hidden;
+}
+
+/* Contenido principal */
+.container {
+  flex:1;
+  padding:4vh 5vw;
+  max-width:960px;
+  margin:0 auto;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.header h1 {
+  font-size:3.5rem;
+  font-weight:700;
+  letter-spacing:-0.02em;
+  margin-bottom:0.2em;
+  color:#f1f1b1;
+}
+.tagline {
+  font-size:1.1rem;
+  color:#88d977;
+  margin-bottom:3rem;
+  opacity:0.9;
+}
+.description {
+  font-size:1.05rem;
+  color:#c7e8c2;
+}
+.description a {
+  color:#8df;
+  text-decoration:underline;
+}
+.description a:hover { color:#fff; }
+.small { margin-top:2rem; font-size:0.9rem; opacity:0.8; }
+
+/* Reproductor fijo abajo */
+.player {
+  position:fixed;
+  bottom:0; left:0; right:0;
+  background:rgba(10,15,20,0.95);
+  backdrop-filter:blur(10px);
+  border-top:1px solid #223;
+  padding:12px 20px;
+  z-index:100;
+}
+.player audio {
+  width:100%;
+  height:48px;
+}
+
+/* Bordes redondeados suaves y un toque glitch */
+.header h1,
+.description,
+.player {
+  border-radius:12px;
+  overflow:hidden;
+}
+
+/* Responsive */
+@media (max-width:640px) {
+  .header h1 { font-size:2.6rem; }
+  .container { padding:6vh 6vw; }
+  .player { padding:10px; }
+}
