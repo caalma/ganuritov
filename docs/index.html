@@ -1,49 +1,57 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ganuritov ∿ audio generativo</title>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>ganuritov ∿ audio generativo</title>
 
-  <!-- Fira Code desde Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <!-- Fira Code desde Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+        <!-- Favicon -->
+        <link rel="icon" type="image/x-icon" href="/favicon.ico">
 
-  <link rel="stylesheet" href="/lib/style.css" />
-</head>
-<body>
-  <main class="container">
-    <header class="header">
-      <h1>ganuritov</h1>
-      <p class="tagline">audio generativo 24⁄7 ∿ bytebeat · glitch · livecoding · algorave</p>
-    </header>
 
-    <section class="description">
-      <p>
-        Proyecto personal de emisión continua de arte sonoro experimental.<br>
-        Bytebeat, síntesis algorítmica, glitches intencionales, livecoding y otras formas no convencionales de generación sonora.<br><br>
-        A veces automatizado, a veces en vivo. Siempre impredecible.
-      </p>
-      <p class="small">
-        → stream: <a href="https://giss.tv:8443/ganuritov.ogg" target="_blank">giss.tv:8443/ganuritov.ogg</a><br>
-        → código y programación semanal: <a href="https://caalma.github.io/ganuritov/" target="_blank">caalma.github.io/ganuritov</a>
-      </p>
-    </section>
-  </main>
 
-  <!-- Reproductor pegado abajo -->
-  <div class="player">
-    <audio id="radio" controls>
-      <source src="https://giss.tv:8443/ganuritov.ogg" type="audio/ogg">
-      <source src="https://giss.tv:8443/ganuritov.mp3" type="audio/mpeg">
-      Tu navegador no soporta audio HTML5.
-    </audio>
-  </div>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="/lib/style.css" />
 
-  <script src="/lib/script.js"></script>
-</body>
+        <script src="https://unpkg.com/hydra-synth"></script>
+
+    </head>
+    <body>
+
+        <canvas id="hydraCanvas"></canvas>
+
+        <main class="container">
+            <header class="header">
+                <h1>ganuritov</h1>
+                <p class="tagline">audio generativo ∿ bytebeat · glitch · livecoding · algorithmic</p>
+            </header>
+
+            <section class="description">
+                <p>
+                    <!-- Proyecto personal de emisión continua de arte sonoro experimental.<br> -->
+                    Bytebeat, síntesis algorítmica, glitches intencionales, livecoding y otras formas no convencionales de generación sonora.<br><br>
+                    A veces automatizado, a veces en vivo. Siempre impredecible.
+                </p>
+                <p class="small">
+                    <!-- → stream: <a href="https://giss.tv:8443/ganuritov.ogg" target="_blank">giss.tv:8443/ganuritov.ogg</a><br> -->
+                    → código y programación semanal: <a href="https://caalma.github.io/ganuritov/" target="_blank">caalma.github.io/ganuritov</a>
+                </p>
+            </section>
+        </main>
+
+        <!-- Reproductor pegado abajo -->
+        <div class="player">
+            <audio id="radio" controls>
+                <source src="https://giss.tv:8443/ganuritov.ogg" type="audio/ogg">
+                Tu navegador no soporta audio HTML5.
+            </audio>
+        </div>
+
+        <script src="/lib/init.js"></script>
+    </body>
 </html>

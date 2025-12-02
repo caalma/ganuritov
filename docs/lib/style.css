@@ -3,9 +3,9 @@
 html, body { height:100%; }
 body {
   background:#0b0d10;
-  color:#b1f1a3;
+  color:#fff;
   font-family:'Fira Code', monospace;
-  line-height:1.6;
+  line-height:1.618;
   display:flex;
   flex-direction:column;
   overflow-x:hidden;
@@ -22,36 +22,34 @@ body {
   justify-content:center;
 }
 .header h1 {
-  font-size:3.5rem;
+  font-size:2.5rem;
   font-weight:700;
-  letter-spacing:-0.02em;
+  letter-spacing:0.3em;
   margin-bottom:0.2em;
-  color:#f1f1b1;
+  color:#fff;
 }
 .tagline {
   font-size:1.1rem;
-  color:#88d977;
+  color:#fff;
   margin-bottom:3rem;
   opacity:0.9;
 }
 .description {
   font-size:1.05rem;
-  color:#c7e8c2;
+  color:#fff;
 }
 .description a {
-  color:#8df;
+  color:#fff;
   text-decoration:underline;
 }
 .description a:hover { color:#fff; }
 .small { margin-top:2rem; font-size:0.9rem; opacity:0.8; }
 
-/* Reproductor fijo abajo */
+/* Reproductor */
 .player {
   position:fixed;
   bottom:0; left:0; right:0;
-  background:rgba(10,15,20,0.95);
-  backdrop-filter:blur(10px);
-  border-top:1px solid #223;
+  background:rgba(10,15,20,0.0);
   padding:12px 20px;
   z-index:100;
 }
@@ -66,6 +64,17 @@ body {
 .player {
   border-radius:12px;
   overflow:hidden;
+}
+
+/* Hydra canvas */
+#hydraCanvas {
+    z-index: -1000;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    image-rendering: pixelated;
+    top: 0;
+    left: 0;
 }
 
 /* Responsive */
