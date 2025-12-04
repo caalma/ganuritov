@@ -24,9 +24,9 @@ const info_server = (data, element) => {
     const ul = document.createElement('ul');
 
     addRow(ul, 'Servidor', server.host || '');
-    addRow(ul, 'Bitrate', myMount.audio_bitrate ? `${myMount.audio_bitrate} kbps` : '');
+    addRow(ul, 'Bitrate', myMount.audio_bitrate ? `${parseInt(myMount.audio_bitrate) / 1000} kbps` : '');
     addRow(ul, 'Canales', myMount.audio_channels ? `${myMount.audio_channels}` : '');
-    addRow(ul, 'Samplerate', myMount.audio_samplerate ? `${myMount.audio_samplerate} Hz` : '');
+    addRow(ul, 'Samplerate', myMount.audio_samplerate ? `${parseInt(myMount.audio_samplerate) / 1000} kHz` : '');
     //addRow(ul, 'Oyentes actuales', myMount.listeners ?? '');
     //addRow(ul, 'Máximo de oyentes', myMount.listener_peak ?? '');
 
