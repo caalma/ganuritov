@@ -3,48 +3,42 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>ganuritov ∿ audio generativo</title>
+        <title>ganuritov</title>
 
-        <!-- Fira Code desde Google Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-        <!-- Favicon -->
         <link rel="icon" type="image/x-icon" href="/favicon.ico">
-
-
 
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <link rel="stylesheet" href="./lib/style.css" />
 
         <script src="https://unpkg.com/hydra-synth"></script>
+        <script src="./lib/icecast-metadata-stats-0.1.12.min.js"></script>
+        <script src="./lib/anim_hydra.js"></script>
+        <script src="./lib/info.js"></script>
 
     </head>
     <body>
-
         <canvas id="hydraCanvas"></canvas>
 
         <main class="container">
             <header class="header">
-                <h1>ganuritov</h1>
-                <p class="tagline">audio generativo ∿ bytebeat · glitch · livecoding · algorithmic</p>
+                <h1><a href="https://caalma.github.io/ganuritov/" target="_blank">ganuritov</a></h1>
+                <p class="tagline">audio generativo ∿ bytebeat · glitch · algorithmic · livecoding</p>
             </header>
-
             <section class="description">
-                <p>
-                    <!-- Proyecto personal de emisión continua de arte sonoro experimental.<br> -->
-                    Bytebeat, síntesis algorítmica, glitches intencionales, livecoding y otras formas no convencionales de generación sonora.<br><br>
-                    A veces automatizado, a veces en vivo. Siempre impredecible.
-                </p>
-                <p class="small">
-                    <!-- → stream: <a href="https://giss.tv:8443/ganuritov.ogg" target="_blank">giss.tv:8443/ganuritov.ogg</a><br> -->
-                    → código y programación semanal: <a href="https://caalma.github.io/ganuritov/" target="_blank">caalma.github.io/ganuritov</a>
+                <p>Bytebeat, síntesis algorítmica, glitches intencionales, livecoding y otras formas no convencionales de generación sonora. A veces automatizado, a veces en vivo. Siempre impredecible.
                 </p>
             </section>
+            <section class="info">
+                <div id="current_sound"></div>
+                <div id="server_stats"></div>
+            </section>
+            <section class="end"></section>
         </main>
 
-        <!-- Reproductor pegado abajo -->
         <div class="player">
             <audio id="radio" controls>
                 <source src="https://giss.tv:667/ganuritov.ogg" type="audio/ogg">

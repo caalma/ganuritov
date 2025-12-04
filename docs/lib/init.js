@@ -1,27 +1,39 @@
-var hydra = new Hydra({
-    canvas: document.getElementById("hydraCanvas"),
-    detectAudio: false,
-    width: window.innerWidth,
-    height: window.innerHeight
-});
-
-
-const Anim = [
-    () => {
-        osc(10, 0.04, Math.random()*5)
-            .rotate(3)
-            .brightness(-0.6)
-            .out();
-    },
-    () => {
-        noise(1)
-            .colorama(Math.random()*5)
-            .brightness(-0.8)
-            .out()
-    }
-];
 
 window.addEventListener('load', () => {
+    var hydra = new Hydra({
+        canvas: document.getElementById("hydraCanvas"),
+        detectAudio: false,
+        width: window.innerWidth,
+        height: window.innerHeight
+    });
+
+
     setResolution(10,10);
-    Anim[Math.round(Math.random() * Anim.length)]();
+    const idA = Math.floor(Math.random() * Anim.length)
+    console.log(idA);
+    Anim[idA]();
+
+
+    const elStats = document.getElementById("server_stats");
+    const elSound = document.getElementById("current_sound");
+
+    const statsListener =
+          new IcecastMetadataStats(
+              "https://giss.tv:667/ganuritov.ogg",
+              {
+                  interval: 30,
+                  sources: [
+                      "ogg",
+                      "icestats",
+                  ],
+                  onStats: (stats) => {
+                      console.log(stats);
+                      info_server(stats, elStats);
+                      info_current_sound(stats, elSound)
+                  }
+              }
+          );
+    statsListener.start();
+
+
 });

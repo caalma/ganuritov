@@ -1,0 +1,55 @@
+
+const addRow = (ul, label, value) => {
+    if(value !== ''){
+        const li = document.createElement('li');
+        li.innerHTML = `<em>${label}</em> <strong>${value}`;
+        ul.appendChild(li);
+    }
+};
+
+const info_server = (data, element) => {
+    if (!data?.icestats?.source || !Array.isArray(data.icestats.source)) {
+        element.textContent = 'Datos del servidor no disponibles.';
+        return;
+    }
+
+    const myMount = data.icestats.source.find(s => s.listenurl?.endsWith('/ganuritov.ogg'));
+    if (!myMount) {
+        element.textContent = 'Tu emisora no está activa en este momento.';
+        return;
+    }
+
+    const server = data.icestats;
+    const now = new Date();
+    const ul = document.createElement('ul');
+
+    addRow(ul, 'Servidor', server.host || '');
+    addRow(ul, 'Bitrate', myMount.audio_bitrate ? `${myMount.audio_bitrate} kbps` : '');
+    addRow(ul, 'Canales', myMount.audio_channels ? `${myMount.audio_channels}` : '');
+    addRow(ul, 'Samplerate', myMount.audio_samplerate ? `${myMount.audio_samplerate} Hz` : '');
+    //addRow(ul, 'Oyentes actuales', myMount.listeners ?? '');
+    //addRow(ul, 'Máximo de oyentes', myMount.listener_peak ?? '');
+
+    element.innerHTML = '';
+    element.appendChild(ul);
+}
+
+const info_current_sound = (data, element) => {
+    if (!data?.ogg || typeof data.ogg !== 'object') {
+        element.textContent = 'Sin metadatos de audio disponibles.';
+        return;
+    }
+
+    const soundO = data.ogg;
+    const ul = document.createElement('ul');
+
+    addRow(ul, 'Titulo', soundO.TITLE || '');
+    addRow(ul, 'Autoría', soundO.ARTIST || '');
+    addRow(ul, 'Fecha', soundO.DATE || '');
+    addRow(ul, 'Album', soundO.ALBUM || '');
+    addRow(ul, 'Género', soundO.GENRE || '');
+    addRow(ul, 'Comentarios', soundO.COMMENT || '');
+
+    element.innerHTML = '';
+    element.appendChild(ul);
+}
