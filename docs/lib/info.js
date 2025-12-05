@@ -1,3 +1,16 @@
+const colors = [
+    '#0000ff55',
+    '#00ff0055',
+    '#ff000055',
+    '#aaff0055',
+    '#ffaa0055',
+    '#00ffaa55',
+    '#ff00aa55',
+    '#00aaff55',
+    '#aa00ff55',
+]
+
+var color_id = 0
 
 const addRow = (ul, label, value) => {
     if(value !== ''){
@@ -52,4 +65,11 @@ const info_current_sound = (data, element) => {
 
     element.innerHTML = '';
     element.appendChild(ul);
+
+    element.style.backgroundColor = colors[color_id % colors.length];
+    color_id += 1;
+
+    setTimeout(()=>{
+        element.style.backgroundColor = '#00000055'
+    }, 5000);
 }

@@ -94,6 +94,7 @@ body {
 }
 #current_sound {
     background: rgba(0,0,0,0.4);
+    transition: 1s background-color ease-in-out;
 }
 
 
@@ -112,6 +113,7 @@ section.end {
 }
 
 a {
+    color: #fff;
     text-decoration: none;
     &:hover {
         text-decoration: underline;
