@@ -27,6 +27,7 @@ window.addEventListener('load', () => {
                       "icestats",
                   ],
                   onStats: (stats) => {
+                      stats = verificar_live(stats);
                       console.log(stats);
                       info_server(stats, elStats);
                       info_current_sound(stats, elSound)

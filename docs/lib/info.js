@@ -1,3 +1,5 @@
+const PUNTO_DE_MONTAJE = '/ganuritov.ogg';
+
 const colors = [
     '#0000ff55',
     '#00ff0055',
@@ -20,13 +22,29 @@ const addRow = (ul, label, value) => {
     }
 };
 
+
+/* :P solo util hasta actualizar a liquidsoap > 2 */
+const verificar_live = (data) => {
+    if (!data?.icestats?.source || !Array.isArray(data.icestats.source)) {
+        return data;
+    }
+    const myMount = data.icestats.source.find(s => s.listenurl?.endsWith(PUNTO_DE_MONTAJE));
+    if (!myMount) {
+        return data;
+    }
+    data.ogg['GENRE'] = myMount.genre;
+    data.ogg['COMMENT'] = myMount.server_description;
+    return data;
+}
+
+
 const info_server = (data, element) => {
     if (!data?.icestats?.source || !Array.isArray(data.icestats.source)) {
         element.textContent = 'Datos del servidor no disponibles.';
         return;
     }
 
-    const myMount = data.icestats.source.find(s => s.listenurl?.endsWith('/ganuritov.ogg'));
+    const myMount = data.icestats.source.find(s => s.listenurl?.endsWith(PUNTO_DE_MONTAJE));
     if (!myMount) {
         element.textContent = 'Tu emisora no está activa en este momento.';
         return;
@@ -46,6 +64,9 @@ const info_server = (data, element) => {
     element.innerHTML = '';
     element.appendChild(ul);
 }
+
+
+
 
 const info_current_sound = (data, element) => {
     if (!data?.ogg || typeof data.ogg !== 'object') {
