@@ -1,5 +1,7 @@
-/* Reset + fuente global */
-* { margin:0; padding:0; box-sizing:border-box; }
+* {
+    font-family:'Fira Code', monospace;
+    margin:0; padding:0; box-sizing:border-box;
+}
 html, body { height:100%; }
 body {
     background:#0b0d10;
