@@ -32,8 +32,11 @@ const verificar_live = (data) => {
     if (!myMount) {
         return data;
     }
-    data.ogg['GENRE'] = myMount.genre;
-    data.ogg['COMMENT'] = myMount.server_description;
+
+    if(myMount.genre == 'live'){
+        data.ogg['GENRE'] = myMount.genre;
+        data.ogg['COMMENT'] = myMount.server_description;
+    }
     return data;
 }
 
