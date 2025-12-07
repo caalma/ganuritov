@@ -16,7 +16,8 @@ var color_id = 0
 
 const licencias = {
     'ccbyncsa4': ['CC BY-NC-SA 4.0', 'https://creativecommons.org/licenses/by-nc-sa/4.0/'],
-    'ccby4': ['CC BY 4.0', 'https://creativecommons.org/licenses/by/4.0']
+    'ccby4': ['CC BY 4.0', 'https://creativecommons.org/licenses/by/4.0'],
+    'slppus': ['Sin licencia pública', './licencias/slppus']
 }
 
 
