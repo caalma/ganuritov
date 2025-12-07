@@ -14,6 +14,36 @@ const colors = [
 
 var color_id = 0
 
+const licencias = {
+    'ccbyncsa4': ['CC BY-NC-SA 4.0', 'https://creativecommons.org/licenses/by-nc-sa/4.0/'],
+    'ccby4': ['CC BY 4.0', 'https://creativecommons.org/licenses/by/4.0']
+}
+
+
+function extraerMetadatos(cadena) {
+    const regex = /(&[A-Za-z_][A-Za-z0-9_]*)=([^&\s]*)/g;
+    const metadatos = {};
+    let match;
+    let cadenaLimpia = cadena;
+
+    while ((match = regex.exec(cadena)) !== null) {
+        const clave = match[1].substring(1); // quitar '&'
+        const valor = match[2];
+        metadatos[clave] = valor;
+    }
+
+    cadenaLimpia = cadena.replace(/(&[A-Za-z_][A-Za-z0-9_]*)=[^&\s]*/g, '');
+    cadenaLimpia = cadenaLimpia.replace(/\s{2,}/g, ' ').trim();
+
+
+    console.log(metadatos);
+
+    return {
+        texto: cadenaLimpia,
+        extra: metadatos
+    };
+}
+
 const addRow = (ul, label, value) => {
     if(value !== ''){
         const li = document.createElement('li');
@@ -21,7 +51,6 @@ const addRow = (ul, label, value) => {
         ul.appendChild(li);
     }
 };
-
 
 /* :P solo util hasta actualizar a liquidsoap > 2 */
 const verificar_live = (data) => {
@@ -69,7 +98,10 @@ const info_server = (data, element) => {
 }
 
 
-
+const link_licencia = (key) => {
+    if(!(key in licencias)) return key;
+    return `<a href="${licencias[key][1]}" target="_blank" rel="noopener">${licencias[key][0]}</a>`;
+}
 
 const info_current_sound = (data, element) => {
     if (!data?.ogg || typeof data.ogg !== 'object') {
@@ -80,12 +112,18 @@ const info_current_sound = (data, element) => {
     const soundO = data.ogg;
     const ul = document.createElement('ul');
 
+    const dataComment = extraerMetadatos(soundO.COMMENT || '')
+
     addRow(ul, 'Titulo', soundO.TITLE || '');
     addRow(ul, 'Autoría', soundO.ARTIST || '');
     addRow(ul, 'Fecha', soundO.DATE || '');
     addRow(ul, 'Album', soundO.ALBUM || '');
     addRow(ul, 'Género', soundO.GENRE || '');
-    addRow(ul, 'Comentarios', soundO.COMMENT || '');
+    addRow(ul, 'Comentarios', dataComment.texto || '');
+
+    if('LI' in dataComment.extra){
+        addRow(ul, 'Licencia', link_licencia(dataComment.extra['LI']));
+    }
 
     element.innerHTML = '';
     element.appendChild(ul);
