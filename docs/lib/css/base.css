@@ -157,10 +157,7 @@ body.ficha-sound {
     .header h1 { font-size:2.6rem; }
     .container { padding:6vh 6vw; }
     .player { padding:10px; }
-
     #current_sound, #server_stats {
         width:100%;
     }
-
-
 }

@@ -19,7 +19,7 @@ const licencias = {
 }
 
 
-function extraerMetadatos(cadena) {
+const extraerMetadatos = (cadena) => {
     const regex = /(&[A-Za-z_][A-Za-z0-9_]*)=([^&\s]*)/g;
     const metadatos = {};
     let match;
@@ -35,7 +35,6 @@ function extraerMetadatos(cadena) {
     cadenaLimpia = cadenaLimpia.replace(/\s{2,}/g, ' ').trim();
 
     //console.log(metadatos);
-
     return {
         texto: cadenaLimpia,
         extra: metadatos
