@@ -49,7 +49,6 @@ const Anim = {
             delete window.hydraCanvas;
             delete window.hydra;
         }
-    },
-
+    }
 
 };
