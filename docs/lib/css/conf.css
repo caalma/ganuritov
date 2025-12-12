@@ -1,0 +1,122 @@
+:root {
+    --bg: #f8f9fc;
+    --panel:  rgba(111,111,111,0.2);
+    --text: #1a1a1a;
+    --accent: #6366f1;
+    --border: rgba(0, 0, 0, 0.08);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #0f0f12;
+        --panel: rgba(0,0,0,0.2);
+        --text: #e0e0e0;
+        --border: rgba(255, 255, 255, 0.1);
+    }
+}
+
+
+/* Botón flotante fijo */
+#settings-btn {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    width: 48px;
+    height: 48px;
+    background: var(--panel);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    font-size: 22px;
+    cursor: pointer;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    transition: all 0.25s ease;
+    color: #fff;
+}
+
+#settings-btn:hover {
+    transform: rotate(90deg);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+#settings-btn:active, #settings-panel.open ~ #settings-btn {
+    transform: rotate(90deg);
+}
+
+/* Panel flotante */
+#settings-panel {
+    position: fixed;
+    top: 76px;
+    right: 16px;
+    width: 260px;
+    background: var(--panel);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 0;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    &.open {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+}
+
+.setting-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    font-size: 14px;
+    user-select: none;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+    input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: #ccc;
+    transition: .3s;
+    border-radius: 34px;
+    &:before {
+        position: absolute;
+        content: "";
+        height: 18px;
+        width: 18px;
+        left: 3px;
+        bottom: 3px;
+        background: white;
+        transition: .3s;
+        border-radius: 50%;
+    }
+}
+
+
+input:checked + .slider {
+    background: var(--accent);
+}
+
+input:checked + .slider:before {
+    transform: translateX(20px);
+}

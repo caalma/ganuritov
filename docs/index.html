@@ -12,16 +12,22 @@
         <link rel="icon" type="image/x-icon" href="./favicon.ico">
 
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-        <link rel="stylesheet" href="./lib/style.css" />
+        <link rel="stylesheet" href="./lib/css/base.css" />
+        <link rel="stylesheet" href="./lib/css/conf.css" />
 
+
+        <script>const PUNTO_DE_MONTAJE = '/ganuritov.ogg';</script>
         <script src="https://unpkg.com/hydra-synth"></script>
-        <script src="./lib/icecast-metadata-stats-0.1.12.min.js"></script>
-        <script src="./lib/anim_hydra.js"></script>
-        <script src="./lib/info.js"></script>
+        <script src="./lib/js/icecast-metadata-stats-0.1.12.min.js"></script>
+        <script src="./lib/js/util.js"></script>
+        <script src="./lib/js/anim.js"></script>
+        <script src="./lib/js/info.js"></script>
+        <script src="./lib/js/conf.js"></script>
 
     </head>
     <body>
-        <canvas id="hydraCanvas"></canvas>
+
+        <div id="background"></div>
 
         <main class="container">
             <header class="header">
@@ -45,6 +51,56 @@
             </audio>
         </div>
 
-        <script src="./lib/init.js"></script>
+        <div class="menu">
+            <button id="settings-btn" aria-label="Configuración">⋮</button>
+            <div id="settings-panel">
+                <div class="setting-item">
+                    <span>Fondo animado</span>
+                    <label class="switch">
+                        <input type="checkbox" id="fondo-animado">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-item">
+                    <span>Ficha sonido</span>
+                    <label class="switch">
+                        <input type="checkbox" id="ficha-sound">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-item">
+                    <span>Ficha streaming</span>
+                    <label class="switch">
+                        <input type="checkbox" id="ficha-stream">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+
+                <div class="setting-item">
+                    <span>Modo zen</span>
+                    <label class="switch">
+                        <input type="checkbox" id="modo-zen">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+
+                <!-- <div class="setting-item">
+                     <span>Reconexión automática</span>
+                     <label class="switch">
+                     <input type="checkbox" id="reconexion-automatica">
+                     <span class="slider"></span>
+                     </label>
+                     </div>
+                -->
+
+            </div>
+        </div>
+
+
+        <script src="./lib/js/init.js"></script>
     </body>
 </html>

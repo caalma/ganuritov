@@ -1,5 +1,3 @@
-const PUNTO_DE_MONTAJE = '/ganuritov.ogg';
-
 const colors = [
     '#0000ff55',
     '#00ff0055',
@@ -36,8 +34,7 @@ function extraerMetadatos(cadena) {
     cadenaLimpia = cadena.replace(/(&[A-Za-z_][A-Za-z0-9_]*)=[^&\s]*/g, '');
     cadenaLimpia = cadenaLimpia.replace(/\s{2,}/g, ' ').trim();
 
-
-    console.log(metadatos);
+    //console.log(metadatos);
 
     return {
         texto: cadenaLimpia,
@@ -104,6 +101,9 @@ const link_licencia = (key) => {
     return `<a href="${licencias[key][1]}" target="_blank" rel="noopener">${licencias[key][0]}</a>`;
 }
 
+
+var soundM = undefined;
+
 const info_current_sound = (data, element) => {
     if (!data?.ogg || typeof data.ogg !== 'object') {
         element.textContent = 'Sin metadatos de audio disponibles.';
@@ -111,8 +111,12 @@ const info_current_sound = (data, element) => {
     }
 
     const soundO = data.ogg;
-    const ul = document.createElement('ul');
+    const controlData = JSON.stringify(soundO);
 
+    if (soundM == controlData){ return; }
+
+    soundM = controlData;
+    const ul = document.createElement('ul');
     const dataComment = extraerMetadatos(soundO.COMMENT || '')
 
     addRow(ul, 'Titulo', soundO.TITLE || '');
