@@ -1,10 +1,10 @@
 const set_menu_cfg = () => {
     const settings = {
-        'fondo-animado':         { key: 'fondoAnimado',         fn: conmutarFondoAnimado },
-        'modo-zen':              { key: 'modoZen',              fn: conmutarModoZen },
-        'ficha-sound':              { key: 'fichaSound',              fn: conmutarFichaSound },
-        'ficha-stream':              { key: 'fichaStream',              fn: conmutarFichaStream }
-        //'reconexion-automatica': { key: 'reconexionAutomatica', fn: aplicarReconexionAuto }
+        'fondo-animado': { key: 'fondoAnimado', fn: conmutarFondoAnimado, def: true },
+        'ficha-sound': { key: 'fichaSound', fn: conmutarFichaSound, def: true },
+        'ficha-stream': { key: 'fichaStream', fn: conmutarFichaStream, def: true },
+        'modo-zen': { key: 'modoZen', fn: conmutarModoZen, def: false }
+        //'reconexion-automatica': { key: 'reconexionAutomatica', fn: aplicarReconexionAuto, def: false }
     };
 
     const btn = document.getElementById('settings-btn');
@@ -28,11 +28,11 @@ const set_menu_cfg = () => {
         const checkbox = document.getElementById(id);
         if (!checkbox) return;
 
-        const { key, fn } = settings[id];
+        const { key, fn, def } = settings[id];
 
         // Recuperar valor
         const saved = localStorage.getItem(key);
-        const value = saved !== null ? saved === 'true' : false;
+        const value = saved !== null ? saved === 'true' : def;
         checkbox.checked = value;
 
         // Ejecutar al cargar página
