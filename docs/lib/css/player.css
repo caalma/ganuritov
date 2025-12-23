@@ -109,8 +109,8 @@
                     }
 
                     .slider-vertical {
-                        -webkit-appearance: slider-vertical;
-                        writing-mode: bt-lr;
+                        writing-mode: vertical-lr;
+                        direction: rtl;
                         width: 2px;
                         height: 100px;
                         background: #fff;
