@@ -16,6 +16,11 @@ const objectsDict = {
     }
 };
 
+function clearLocationHash() {
+    const urlSinHash = location.origin + location.pathname + location.search;
+    history.replaceState(null, '', urlSinHash);
+}
+
 function showPanel(data) {
     if (!data || !data.title || !data.content) return;
 
@@ -29,8 +34,7 @@ function showPanel(data) {
 function closePanel() {
     document.getElementById('overlay').style.display = 'none';
     document.getElementById('floating-panel').style.display = 'none';
-    location.hash = '';
-    //location.href = location.href.split('#')[0];
+    clearLocationHash();
 }
 
 function showNotification(message) {
