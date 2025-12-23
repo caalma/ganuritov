@@ -1,0 +1,158 @@
+// Diccionarios (igual que antes)
+const functionsDict = {
+    'now': () => {
+        let a = window.Date().toLocaleString();
+        return {
+            title: 'Ahora es : ',
+            content:  `${a}`,
+        }
+    }
+};
+
+const objectsDict = {
+    'ayuda': {
+        title: 'Ayuda',
+        content: '...',
+    }
+};
+
+function showPanel(data) {
+    if (!data || !data.title || !data.content) return;
+
+    document.getElementById('panel-title').textContent = data.title;
+    document.getElementById('panel-content').innerHTML = data.content;
+
+    document.getElementById('overlay').style.display = 'block';
+    document.getElementById('floating-panel').style.display = 'block';
+}
+
+function closePanel() {
+    document.getElementById('overlay').style.display = 'none';
+    document.getElementById('floating-panel').style.display = 'none';
+    location.hash = '';
+    //location.href = location.href.split('#')[0];
+}
+
+function showNotification(message) {
+    const noti = document.getElementById('notification');
+    noti.textContent = message;
+    noti.classList.add('show');
+    setTimeout(() => noti.classList.remove('show'), 3000);
+}
+
+function handleHashChange() {
+    const hash = location.hash.substring(1);
+    const params = new URLSearchParams(hash);
+    const key = params.get('oD');
+    if (!key) {
+        closePanel(); // Si quitan el hash, cierra el panel
+        return;
+    }
+
+    if (functionsDict[key]) {
+        showPanel(functionsDict[key]());
+        return;
+    }
+
+    if (objectsDict[key]) {
+        showPanel(objectsDict[key]);
+        return;
+    }
+
+    fetch(`./info/${key}.json`)
+        .then(r => {
+            if (!r.ok) throw new Error();
+            return r.json();
+        })
+        .then(data => {
+            data['title'] = data.meta.title;
+            data['content'] = generarContenido(data);
+            console.log(data);
+            showPanel(data);
+        })
+        .catch(() => showNotification(`El contenido "${key}" no existe.`));
+}
+
+function generarContenido(datos) {
+    if (!datos || typeof datos !== 'object') {
+        return '<ul><li>Datos inválidos</li></ul>';
+    }
+
+    const { meta = {}, info = {} } = datos;
+    const order_meta = ['artist', 'album', 'date', 'genre', 'comment'];
+    const order_info = ['licencia', 'fuente'];
+    const etiquetas = {
+        title: 'Título',
+        album: 'Álbum',
+        artist: 'Artista',
+        date: 'Año',
+        genre: 'Género',
+        comment: 'Comentario',
+        licencia: 'Licencia',
+        fuente: 'Fuente'
+    };
+    const items = [];
+
+
+    // Agregar metadatos
+    for (const clave of order_meta) {
+        if (clave in meta) {
+            const valor = meta[clave];
+            if (valor && valor.trim() !== '') {
+                const etiqueta = etiquetas[clave] || clave.charAt(0).toUpperCase() + clave.slice(1);
+                if (clave === 'artist') {
+                    items.push(`<li><span class="item-key">${etiqueta}:</span> <strong>${valor.trim()}</strong></li>`);
+                } else {
+                    items.push(`<li><span class="item-key">${etiqueta}:</span> ${valor.trim()}</li>`);
+                }
+            }
+        }
+    }
+
+    // Agregar informaciones
+    for (const clave of order_info) {
+        if (clave in info) {
+            const valor = info[clave];
+
+            if (clave === 'licencia') {
+                if (licencias[info.licencia]) {
+                    items.push(`<li><span class="item-key">Licencia:</span> ${link_licencia(info.licencia)}</li>`);
+                } else  {
+                    // En caso de licencia no mapeada, mostrar el código
+                    items.push(`<li><span class="item-key">Licencia:</span> ${info.licencia}</li>`);
+                }
+            } else if (clave === 'fuente') {
+                if (valor && valor.trim() !== '') {
+                    const etiqueta = etiquetas[clave] || clave.charAt(0).toUpperCase() + clave.slice(1);
+                    items.push(`<li><span class="item-key">${etiqueta}:</span> <a href="${valor.trim()}" target="_blank">${valor.trim()}</a></li>`);
+                }
+            } else {
+                if (valor && valor.trim() !== '') {
+                    const etiqueta = etiquetas[clave] || clave.charAt(0).toUpperCase() + clave.slice(1);
+                    items.push(`<li><span class="item-key">${etiqueta}:</span> ${valor.trim()}</li>`);
+                }
+            }
+        }
+    }
+
+
+    if (items.length === 0) {
+        return '<ul><li>Sin metadatos disponibles</li></ul>';
+    }
+
+    return `<ul>${items.join('')}</ul>`;
+}
+
+
+function openPanel(key) {
+    location.hash = `#oD=${key}`;
+}
+
+// Cierre con tecla Esc
+window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closePanel();
+});
+
+// Listeners
+window.addEventListener('hashchange', handleHashChange);
+window.addEventListener('load', handleHashChange);

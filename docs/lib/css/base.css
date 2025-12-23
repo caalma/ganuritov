@@ -1,19 +1,75 @@
+/* Estilos generales */
+:root {
+    --bg:#f8f9fc;
+    --panel:rgba(111,111,111,0.2);
+    --text:#1a1a1a;
+    --accent:#44ee44;
+    --correct:#44ee44;
+    --error:#ff4444;
+    --border:rgba(0, 0, 0, 0.08);
+}
+
+@media (prefers-color-scheme:dark) {
+    :root {
+        --bg:#0f0f12;
+        --panel:rgba(0,0,0,0.2);
+        --text:#e0e0e0;
+        --border:rgba(255, 255, 255, 0.1);
+    }
+}
+
+
 * {
     font-family:'Fira Code', monospace;
-    margin:0; padding:0; box-sizing:border-box;
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
 html, body { height:100%; }
 
 body {
-    background: radial-gradient(circle, #011335, #180118);
+    background:radial-gradient(circle, #011335, #180118);
     color:#fff;
     line-height:1.618;
     display:flex;
     flex-direction:column;
     overflow-x:hidden;
+
+    /* body modes */
+    &.zen-mode {
+        .container { justify-content:flex-end; }
+        .header h1 { font-size:1.3em; }
+        .tagline, .description, .info, .end { display:none; }
+        .player-container { position:relative; }
+    }
+
+    &.ficha-stream {
+        #server_stats { display:block!important; }
+    }
+
+    &.ficha-sound {
+        #current_sound { display:block!important; }
+    }
 }
 
+.hidden { display:none!important; }
+
+.small {
+    margin-top:2rem;
+    font-size:0.9rem;
+    opacity:0.8;
+}
+
+
+a {
+    color:#fff;
+    text-decoration:none;
+    &:hover { text-decoration:underline; }
+}
+
+
+/* contenedor de información principal */
 .container {
     flex:1;
     padding:4vh 5vw;
@@ -22,133 +78,104 @@ body {
     display:flex;
     flex-direction:column;
     justify-content:center;
-}
 
-.header h1 {
-    font-size:2.5rem;
-    font-weight:700;
-    letter-spacing:0.3em;
-    margin-bottom:0.2em;
-    color:#fff;
-}
+    .header {
+        h1 {
+            font-size:2.4rem;
+            font-weight:900;
+            letter-spacing:0.3em;
+            margin-bottom:0.2em;
+            color:#fff;
+        }
 
-.tagline {
-    font-size:1rem;
-    color:#fff;
-    margin-bottom:3rem;
-    opacity:0.9;
-}
+        .tagline {
+            font-size:1rem;
+            color:#fff;
+            margin-bottom:3rem;
+            opacity:0.9;
+        }
 
-.description {
-    font-size:1.05rem;
-    color:#fff;
-    a {
-        color:#fff;
-        text-decoration:underline;
-        &:hover { color:#fff; }
-    }
-}
-
-.small { margin-top:2rem; font-size:0.9rem; opacity:0.8; }
-
-section {
-    &.info {
-        padding: 30px 0;
-        display: flex;
-        gap: 10px;
-        justify-content: center;
-        align-content: flex-end;
-        flex-wrap: wrap;
-        align-items: stretch;
     }
 
-    &.end { min-height: 50px; }
-}
 
-a {
-    color: #fff;
-    text-decoration: none;
-    &:hover {
-        text-decoration: underline;
+    section {
+        &.description {
+            font-size:1rem;
+            font-style:italic;
+            color:#fff;
+        }
+
+        &.info {
+            padding:30px 0;
+            display:flex;
+            gap:10px;
+            justify-content:center;
+            align-content:flex-end;
+            flex-wrap:wrap;
+            align-items:stretch;
+
+            a {
+                color: var(--accent);
+            }
+            #current_sound, #server_stats {
+                display:none;
+                backdrop-filter:blur(4px);
+                padding:9px;
+                margin:3px;
+                border:1px solid rgba(255,255,255, 0.3);
+                border-radius:6px;
+                ul {
+                    list-style:none;
+                    em {
+                        font-style:normal;
+                        font-size:0.8rem;
+                        text-transform:uppercase;
+                        font-weight:300;
+                    }
+                }
+            }
+
+            #current_sound {
+                width:60%;
+                background:rgba(0,0,0,0.4);
+                transition:1s background-color ease-in-out;
+            }
+        }
+
+        &.end { min-height:50px; }
     }
-}
-
-/* Reproductor */
-.player {
-    position:fixed;
-    bottom:0; left:0; right:0;
-    background:rgba(10,15,20,0.0);
-    padding:12px 20px;
-    z-index:100;
-    text-align: center;
-    audio {
-        width:90%;
-        height:50px;
-    }
-}
-
-/* Estilo de bordes */
-.header h1,
-.description,
-.player {
-    border-radius:12px;
-    overflow:hidden;
 }
 
 /* Hydra canvas */
 #hydraCanvas {
-    z-index: -1;
-    width: 100vw;
-    height: 100vh;
-    position: absolute;
-    image-rendering: pixelated;
-    top: 0;
-    left: 0;
+    z-index:-1;
+    width:100vw;
+    height:100vh;
+    position:absolute;
+    image-rendering:pixelated;
+    top:0;
+    left:0;
 }
 
-/* Informaciones de sonido y server */
-#current_sound, #server_stats {
-    display: none;
-    backdrop-filter: blur(4px);
-    padding: 9px;
-    margin: 3px;
-    border: 1px solid rgba(255,255,255, 0.3);
-    border-radius: 6px;
-    ul {
-        list-style: none;
-        em {
-            font-style: normal;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            font-weight: 300;
+/* body modes */
+body {
+    &.zen-mode {
+        .container {
+            justify-content:flex-end;
+            padding:5px;
         }
+        .header h1 { font-size:1.3em; }
+        .tagline, .description, .info, .end { display:none; }
+        .player-container { position:relative; }
     }
-}
-#current_sound {
-    width: 60%;
-    background: rgba(0,0,0,0.4);
-    transition: 1s background-color ease-in-out;
-}
 
-
-/* ModoZen */
-body.zen-mode {
-    .container { justify-content: flex-end; }
-    .header h1 { font-size: 1.3em; }
-    .tagline, .description, .info, .end { display: none; }
-    .player { position: relative; }
-    .player audio {
-        width:80%;
-        height:55px;
+    &.ficha-stream {
+        #server_stats { display:block; }
     }
-}
 
-body.ficha-stream {
-    #server_stats { display: block; }
-}
-
-body.ficha-sound {
-    #current_sound { display: block; }
+    &.ficha-sound {
+        #current_sound { display:block; }
+    }
 }
 
 

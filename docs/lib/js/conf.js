@@ -3,8 +3,8 @@ const set_menu_cfg = () => {
         'fondo-animado': { key: 'fondoAnimado', fn: conmutarFondoAnimado, def: true },
         'ficha-sound': { key: 'fichaSound', fn: conmutarFichaSound, def: true },
         'ficha-stream': { key: 'fichaStream', fn: conmutarFichaStream, def: true },
-        'modo-zen': { key: 'modoZen', fn: conmutarModoZen, def: false }
-        //'reconexion-automatica': { key: 'reconexionAutomatica', fn: aplicarReconexionAuto, def: false }
+        'modo-zen': { key: 'modoZen', fn: conmutarModoZen, def: false },
+        'reconexion-automatica': { key: 'reconexionAutomatica', fn: conmutarReconexionAuto, def: false }
     };
 
     const btn = document.getElementById('settings-btn');
@@ -14,11 +14,13 @@ const set_menu_cfg = () => {
     btn.addEventListener('click', (e) => {
         e.stopPropagation();
         panel.classList.toggle('open');
+        btn.classList.add('active');
     });
 
     // Cerrar menú
     document.addEventListener('click', () => {
         panel.classList.remove('open');
+        btn.classList.remove('active');
     });
 
     panel.addEventListener('click', (e) => e.stopPropagation());

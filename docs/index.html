@@ -1,19 +1,44 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta content="ie=edge" http-equiv="x-ua-compatible">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta content="true" name="HandheldFriendly">
+        <meta content="width" name="MobileOptimized">
+        <meta content="on" http-equiv="cleartype">
+
         <title>ganuritov - radio online</title>
+
+        <meta content="ganuritov - radio online" name="description">
+	    <meta content="index, follow" name="robots">
+
+	    <meta property="og:image" content="https://caalma.github.io/ganuritov/img/ganuritov_share.png">
+		<meta property="og:image:secure_url" content="https://caalma.github.io/ganuritov/img/ganuritov_share.png">
+	    <meta property="og:image:type" content="image/png">
+		<meta property="og:image:width" content="1000">
+		<meta property="og:image:height" content="1000">
+	    <meta property="og:title" content="ganuritov - radio online">
+	    <meta property="og:site_name" content="caalma.github.io/ganuritov/">
+	    <meta property="og:description" content="ganuritov - radio online">
+	    <meta property="og:locale" content="es_AR">
+
+	    <link rel="canonical" href="https://caalma.github.io/ganuritov/">
+	    <link rel="image_src" href="https://caalma.github.io/ganuritov/img/ganuritov_share.png">
+
+        <link rel="icon" type="image/x-icon" href="./favicon.ico">
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-        <link rel="icon" type="image/x-icon" href="./favicon.ico">
-
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-        <link rel="stylesheet" href="./lib/css/base.css" />
-        <link rel="stylesheet" href="./lib/css/conf.css" />
+        <link rel="stylesheet" href="./lib/css/base.css">
+        <link rel="stylesheet" href="./lib/css/conf.css">
+        <link rel="stylesheet" href="./lib/css/panel.css">
+        <link rel="stylesheet" href="./lib/css/notif.css">
+        <link rel="stylesheet" href="./lib/css/player.css">
 
 
         <script>
@@ -27,6 +52,9 @@
         <script src="./lib/js/anim.js"></script>
         <script src="./lib/js/info.js"></script>
         <script src="./lib/js/conf.js"></script>
+        <script src="./lib/js/panel.js"></script>
+        <script src="./lib/js/player.js"></script>
+        <script src="./lib/js/licencias.js"></script>
 
     </head>
     <body>
@@ -48,12 +76,30 @@
             <section class="end"></section>
         </main>
 
-        <div class="player">
-            <audio id="radio" controls>
-                <source src="https://giss.tv:667/ganuritov.ogg" type="audio/ogg">
-                Tu navegador no soporta audio HTML5.
-            </audio>
-        </div>
+        <section class="player-container">
+            <div class="player">
+                <button id="startButton">Escuchar</button>
+                <div class="controls-row hidden">
+                    <button class="btn-play" id="playButton">▶</button>
+
+                    <div class="volume-control">
+                        <button class="btn-volume" id="volumeBtn">♪</button>
+                        <div class="slider-popup" id="volumePopup">
+                            <span class="slider-value" id="volumeValue">80</span>
+                            <input type="range" min="0" max="100" value="80" class="slider-vertical" id="volumeSlider" orient="vertical">
+                        </div>
+                    </div>
+
+                    <div class="time-display" id="timeDisplay">00:00:00</div>
+                </div>
+
+                <audio id="radio">
+                    <source src="https://giss.tv:667/ganuritov.ogg" type="audio/ogg">
+                </audio>
+            </div>
+        </section>
+
+
 
         <div class="menu">
             <button id="settings-btn" aria-label="Configuración">⋮</button>
@@ -91,18 +137,47 @@
                     </label>
                 </div>
 
-                <!-- <div class="setting-item">
+                <div class="setting-item">
                      <span>Reconexión automática</span>
                      <label class="switch">
                      <input type="checkbox" id="reconexion-automatica">
                      <span class="slider"></span>
                      </label>
-                     </div>
-                -->
+                </div>
+
+                <div class="separator-line"></div>
+
+                <div class="option-link">
+                    <a href="" id="streamDirecto" target="_blank">Fuente del stream</a>
+                    <script>window.streamDirecto.href = URL_STREAM;</script>
+                </div>
+
+                <!-- <div class="option-link">
+                     <a href="#oD=ayuda"  target="_blank">Ayuda</a>
+                     </div> -->
+
 
             </div>
         </div>
 
+
+        <!-- Panel flotante -->
+        <div id="overlay" onclick="closePanel()"></div>
+        <div id="floating-panel">
+            <div id="panel-close" onclick="closePanel()">×</div>
+            <h2 id="panel-title"></h2>
+            <div id="panel-content"></div>
+        </div>
+
+        <!-- Notificación -->
+        <div class="notif" id="notif">
+            <div class="icon" id="icon"></div>
+            <div class="message" id="message"></div>
+            <div class="close" id="close">×</div>
+        </div>
+
+        <script src="./lib/js/notif.js"></script>
         <script src="./lib/js/init.js"></script>
+
     </body>
 </html>

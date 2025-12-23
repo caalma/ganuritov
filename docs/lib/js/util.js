@@ -34,6 +34,6 @@ const conmutarFichaStream = (activado) => {
 }
 
 
-//function conmutarReconexionAuto(activado) {
-//    console.log('Reconexión automática:', activado ? 'ON' : 'OFF');
-//}
+const conmutarReconexionAuto = (activado) => {
+    console.log('Reconexión automática:', activado ? 'ON' : 'OFF');
+}

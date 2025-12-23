@@ -12,13 +12,6 @@ const colors = [
 
 var color_id = 0
 
-const licencias = {
-    'ccbyncsa4': ['CC BY-NC-SA 4.0', 'https://creativecommons.org/licenses/by-nc-sa/4.0/'],
-    'ccby4': ['CC BY 4.0', 'https://creativecommons.org/licenses/by/4.0'],
-    'slppus': ['Sin licencia pública', './licencias/slppus']
-}
-
-
 const extraerMetadatos = (cadena) => {
     const regex = /(&[A-Za-z_][A-Za-z0-9_]*)=([^&\s]*)/g;
     const metadatos = {};
@@ -95,12 +88,6 @@ const info_server = (data, element) => {
 }
 
 
-const link_licencia = (key) => {
-    if(!(key in licencias)) return key;
-    return `<a href="${licencias[key][1]}" target="_blank" rel="noopener">${licencias[key][0]}</a>`;
-}
-
-
 var soundM = undefined;
 
 const info_current_sound = (data, element) => {
@@ -116,7 +103,8 @@ const info_current_sound = (data, element) => {
 
     soundM = controlData;
     const ul = document.createElement('ul');
-    const dataComment = extraerMetadatos(soundO.COMMENT || '')
+    const dataComment = extraerMetadatos(soundO.COMMENT || '');
+    console.log(dataComment);
 
     addRow(ul, 'Titulo', soundO.TITLE || '');
     addRow(ul, 'Autoría', soundO.ARTIST || '');
@@ -125,9 +113,10 @@ const info_current_sound = (data, element) => {
     addRow(ul, 'Género', soundO.GENRE || '');
     addRow(ul, 'Comentarios', dataComment.texto || '');
 
-    if('LI' in dataComment.extra){
-        addRow(ul, 'Licencia', link_licencia(dataComment.extra['LI']));
+    if (dataComment.extra['ID']) {
+        addRow(ul, '', `<a href="#oD=${dataComment.extra['ID']}">+ INFO</a> `);
     }
+
 
     element.innerHTML = '';
     element.appendChild(ul);
