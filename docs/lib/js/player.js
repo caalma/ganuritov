@@ -24,7 +24,7 @@ let timerInterval = null;
 
 
 // Auto reconección
-function startMonitoring() {
+const startMonitoring = () => {
     if (monitoringActive) return;
     monitoringActive = true;
 
@@ -43,7 +43,7 @@ function startMonitoring() {
     audio.addEventListener('ended', handleDisconnect);
 }
 
-function handleDisconnect() {
+const handleDisconnect = () => {
     if (!userPause) {
         if (isConnected) {
             isConnected = false;
@@ -58,17 +58,17 @@ function handleDisconnect() {
     }
 }
 
-function checkStall() {
+const checkStall = () => {
     clearTimeout(stallTimeout);
     stallTimeout = setTimeout(handleDisconnect, stallThreshold);
 }
 
-function resetStallTimer() {
+const resetStallTimer = () => {
     clearTimeout(stallTimeout);
     stallTimeout = setTimeout(handleDisconnect, stallThreshold);
 }
 
-function attemptReconnect() {
+const attemptReconnect = () => {
     audio.load();
     audio.play().then(()=>{
         startTimer();
@@ -78,7 +78,7 @@ function attemptReconnect() {
 }
 
 // Actualizar tiempo
-function updateTime() {
+const updateTime = () => {
     elapsedTime = Date.now() - startTime;
     const totalSeconds = Math.floor(elapsedTime / 1000);
     const hours = Math.floor(totalSeconds / 3600);
@@ -91,11 +91,11 @@ function updateTime() {
         String(seconds).padStart(2, '0');
 }
 
-function stopTimer() {
+const stopTimer = () => {
     clearInterval(timerInterval);
 }
 
-function startTimer() {
+const startTimer = () => {
     startTime = Date.now() - elapsedTime;
     timerInterval = setInterval(updateTime, 1000);
     playButton.textContent = '∎';

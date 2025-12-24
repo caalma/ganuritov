@@ -3,7 +3,7 @@ const icon = document.getElementById('icon');
 const message = document.getElementById('message');
 const close = document.getElementById('close');
 
-function showToast(status) {
+const showToast = (status) => {
     toast.classList.remove('connected');
     if (status === 'connected') {
         message.textContent = '¡Stream conectado! Reproduciendo.';

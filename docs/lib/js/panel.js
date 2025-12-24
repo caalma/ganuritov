@@ -16,12 +16,12 @@ const objectsDict = {
     }
 };
 
-function clearLocationHash() {
+const clearLocationHash = () => {
     const urlSinHash = location.origin + location.pathname + location.search;
     history.replaceState(null, '', urlSinHash);
 }
 
-function showPanel(data) {
+const showPanel = (data) => {
     if (!data || !data.title || !data.content) return;
 
     document.getElementById('panel-title').textContent = data.title;
@@ -31,27 +31,25 @@ function showPanel(data) {
     document.getElementById('floating-panel').style.display = 'block';
 }
 
-function closePanel() {
+const closePanel = () => {
     document.getElementById('overlay').style.display = 'none';
     document.getElementById('floating-panel').style.display = 'none';
     clearLocationHash();
 }
 
-function showNotification(message) {
+const showNotification = (message) => {
     const noti = document.getElementById('notification');
     noti.textContent = message;
     noti.classList.add('show');
     setTimeout(() => noti.classList.remove('show'), 3000);
 }
 
-function handleHashChange() {
+const handleHashChange = () => {
     const hash = location.hash.substring(1);
     const params = new URLSearchParams(hash);
     const key = params.get('oD');
-    if (!key) {
-        closePanel(); // Si quitan el hash, cierra el panel
-        return;
-    }
+     // Cerrar el panel al quitar el hash
+    if (!key) { closePanel(); return; }
 
     if (functionsDict[key]) {
         showPanel(functionsDict[key]());
@@ -77,7 +75,7 @@ function handleHashChange() {
         .catch(() => showNotification(`El contenido "${key}" no existe.`));
 }
 
-function generarContenido(datos) {
+const generarContenido = (datos) => {
     if (!datos || typeof datos !== 'object') {
         return '<ul><li>Datos inválidos</li></ul>';
     }
@@ -96,7 +94,6 @@ function generarContenido(datos) {
         fuente: 'Fuente'
     };
     const items = [];
-
 
     // Agregar metadatos
     for (const clave of order_meta) {
@@ -148,15 +145,15 @@ function generarContenido(datos) {
 }
 
 
-function openPanel(key) {
+const openPanel = (key) => {
     location.hash = `#oD=${key}`;
 }
 
-// Cierre con tecla Esc
+// Cerrar panel con Escape
 window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closePanel();
 });
 
-// Listeners
+// Escuchas
 window.addEventListener('hashchange', handleHashChange);
 window.addEventListener('load', handleHashChange);
