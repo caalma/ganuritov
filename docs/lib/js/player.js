@@ -52,8 +52,9 @@ const handleDisconnect = () => {
                 reconnectInterval = setInterval(attemptReconnect, reconnectDelay);
             }
             stopTimer();
-            playButton.textContent = '!';
-
+            playButton.classList.add('icono-alert');
+            playButton.classList.remove('icono-pause');
+            playButton.classList.remove('icono-play');
         }
     }
 }
@@ -98,7 +99,9 @@ const stopTimer = () => {
 const startTimer = () => {
     startTime = Date.now() - elapsedTime;
     timerInterval = setInterval(updateTime, 1000);
-    playButton.textContent = '∎';
+    playButton.classList.remove('icono-alert');
+    playButton.classList.add('icono-pause');
+    playButton.classList.remove('icono-play');
 }
 
 
@@ -120,7 +123,9 @@ window.addEventListener('load', () => {
         if (isPlaying) {
             audio.pause();
             stopTimer();
-            playButton.textContent = '▶';
+            playButton.classList.remove('icono-alert');
+            playButton.classList.remove('icono-pause');
+            playButton.classList.add('icono-play');
             userPause = true;
         } else {
             audio.play().then(() => {
@@ -156,7 +161,6 @@ window.addEventListener('load', () => {
     volumeSlider.addEventListener('input', (e) => {
         const volume = e.target.value / 100;
         audio.volume = volume;
-        volumeValue.textContent = e.target.value;
     });
 
 
