@@ -30,8 +30,9 @@
     }
 
     #settings-panel {
+        --postop: 70px;
         position:fixed;
-        top:76px;
+        top:var(--postop);
         right:16px;
         width:260px;
         background:var(--panel);
@@ -39,8 +40,10 @@
         border:1px solid var(--border);
         border-radius:10px;
         padding:16px 0;
+        max-height:calc(97vh - var(--postop));
         box-shadow:0 10px 30px rgba(0,0,0,0.15);
         z-index:999;
+        overflow-y: auto;
         opacity:0;
         visibility:hidden;
         transform:translateY(-10px);

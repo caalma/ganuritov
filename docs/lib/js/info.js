@@ -110,11 +110,11 @@ const info_current_sound = (data, element) => {
     addRow(ul, 'Autoría', soundO.ARTIST || '');
     addRow(ul, 'Fecha', soundO.DATE || '');
     addRow(ul, 'Album', soundO.ALBUM || '');
-    addRow(ul, 'Género', soundO.GENRE || '');
-    addRow(ul, 'Comentarios', dataComment.texto || '');
+    //addRow(ul, 'Género', soundO.GENRE || '');
+    //addRow(ul, 'Comentarios', dataComment.texto || '');
 
     if (dataComment.extra['ID']) {
-        addRow(ul, '', `<a href="#oD=${dataComment.extra['ID']}">+ INFO</a> `);
+        addRow(ul, '', `<a href="#oD=${dataComment.extra['ID']}">[+INFO]</a> `);
     }
 
 
