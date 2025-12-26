@@ -4,7 +4,7 @@
     position:fixed;
     top:15px;
     right:15px;
-    background-color:#1e1e1e;
+    background-color:#1e1e1ebb;
     border-left:5px solid var(--error);
     padding:16px 24px;
     border-radius:8px;
@@ -20,7 +20,7 @@
     color:#fff;
 
     &.show { opacity:1; transform:translateX(0); }
-    &.connected { border-left-color:var(--correct); }
+    &.good { border-left-color:var(--correct); }
     .icon { font-size:1.8rem; }
     .message { font-size:1.1rem; }
 

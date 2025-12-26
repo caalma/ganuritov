@@ -1,22 +1,33 @@
-const toast = document.getElementById('notif');
-const icon = document.getElementById('icon');
-const message = document.getElementById('message');
-const close = document.getElementById('close');
+let n_notif = undefined;
+let n_message = undefined;
+let n_close = undefined;
 
-const showToast = (status) => {
-    toast.classList.remove('connected');
-    if (status === 'connected') {
-        message.textContent = '¡Stream conectado! Reproduciendo.';
-        icon.textContent = '🟢';
-        toast.classList.add('connected');
-    } else {
-        message.textContent = localStorage.getItem('reconexionAutomatica')
-            ? 'Stream desconectado. Intentando reconectar...'
-            : 'Stream desconectado.';
-        icon.textContent = '🔴';
+const showNotif = (error, msg) => {
+    n_notif.classList.remove('good');
+    if (!error) {
+        n_notif.classList.add('good');
     }
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 5000);
+    n_message.textContent = msg
+    n_notif.classList.add('show');
+    setTimeout(() => n_notif.classList.remove('show'), 5000);
 }
 
-close.onclick = () => toast.classList.remove('show');
+const showNotifConnection = (status) => {
+    n_notif.classList.remove('good');
+    if (status === 'connected') {
+        n_message.textContent = '¡Stream conectado! Reproduciendo.';
+        n_notif.classList.add('good');
+    } else {
+        n_message.textContent = localStorage.getItem('reconexionAutomatica')
+            ? 'Stream desconectado. Intentando reconectar...'
+            : 'Stream desconectado.';
+    }
+    n_notif.classList.add('show');
+    setTimeout(() => n_notif.classList.remove('show'), 5000);
+}
+
+window.addEventListener('load', ()=>{
+    n_notif = document.querySelector('#notif');
+    n_message = document.querySelector('#notif .message');
+    document.querySelector('#notif .close').onclick = () => notif.classList.remove('show');
+});

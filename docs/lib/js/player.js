@@ -1,21 +1,21 @@
+const stallThreshold = 5000;
+const reconnectDelay = 5000;
 
-let playerControl = undefined;
 let isConnected = false;
 let reconnectInterval = null;
 let stallTimeout = null;
 let monitoringActive = false;
 let userPause = false;
 
-const stallThreshold = 5000;
-const reconnectDelay = 5000;
-
-let audio = document.getElementById('radio');
-let playButton = document.getElementById('playButton');
-let volumeBtn = document.getElementById('volumeBtn');
-let volumePopup = document.getElementById('volumePopup');
-let volumeSlider = document.getElementById('volumeSlider');
-let volumeValue = document.getElementById('volumeValue');
-let timeDisplay = document.getElementById('timeDisplay');
+let startButton = undefined;
+let playerControl = undefined;
+let audio = undefined;
+let playButton = undefined;
+let volumeBtn = undefined;
+let volumePopup = undefined;
+let volumeSlider = undefined;
+let volumeValue = undefined;
+let timeDisplay = undefined;
 
 let isPlaying = false;
 let startTime = 0;
@@ -31,7 +31,7 @@ const startMonitoring = () => {
     audio.addEventListener('playing', () => {
         if (!isConnected) {
             isConnected = true;
-            showToast('connected');
+            showNotifConnection('connected');
             clearInterval(reconnectInterval);
             clearTimeout(stallTimeout);
         }
@@ -47,7 +47,7 @@ const handleDisconnect = () => {
     if (!userPause) {
         if (isConnected) {
             isConnected = false;
-            showToast('disconnected');
+            showNotifConnection('disconnected');
             if (localStorage.getItem('reconexionAutomatica')) {
                 reconnectInterval = setInterval(attemptReconnect, reconnectDelay);
             }
@@ -113,6 +113,8 @@ window.addEventListener('load', () => {
     volumeSlider = document.getElementById('volumeSlider');
     volumeValue = document.getElementById('volumeValue');
     timeDisplay = document.getElementById('timeDisplay');
+    playerControl = document.querySelector('.player .controls-row');
+    startButton = document.getElementById('startButton');
     isPlaying = false;
     startTime = 0;
     elapsedTime = 0;
@@ -133,10 +135,11 @@ window.addEventListener('load', () => {
                 playerControl.classList.remove('hidden');
                 startMonitoring();
                 isConnected = true;
-                if (!userPause) { showToast('connected'); }
+                if (!userPause) { showNotifConnection('connected'); }
                 userPause = false;
             }).catch(err => {
-                alert('Error al reproducir: ' + err.message);
+                showNotif(true, '¡Error! Stream inactivo.');
+                console.log('Error al reproducir: ' + err.message);
             });
             startTimer();
         }
@@ -163,10 +166,5 @@ window.addEventListener('load', () => {
         audio.volume = volume;
     });
 
-
-    playerControl = document.querySelector('.player .controls-row');
-    const startButton = document.getElementById('startButton');
-
     startButton.onclick = () => {  playButton.click(); };
-
 });

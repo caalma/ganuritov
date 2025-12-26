@@ -16,6 +16,11 @@ const objectsDict = {
     }
 };
 
+let pPanelTitle = undefined;
+let pPanelContent = undefined;
+let pOverlay = undefined;
+let pFloatingPanel = undefined;
+
 const clearLocationHash = () => {
     const urlSinHash = location.origin + location.pathname + location.search;
     history.replaceState(null, '', urlSinHash);
@@ -23,25 +28,16 @@ const clearLocationHash = () => {
 
 const showPanel = (data) => {
     if (!data || !data.title || !data.content) return;
-
-    document.getElementById('panel-title').textContent = data.title;
-    document.getElementById('panel-content').innerHTML = data.content;
-
-    document.getElementById('overlay').style.display = 'block';
-    document.getElementById('floating-panel').style.display = 'block';
+    pPanelTitle.textContent = data.title;
+    pPanelContent.innerHTML = data.content;
+    pOverlay.style.display = 'block';
+    pFloatingPanel.style.display = 'block';
 }
 
 const closePanel = () => {
-    document.getElementById('overlay').style.display = 'none';
-    document.getElementById('floating-panel').style.display = 'none';
+    pOverlay.style.display = 'none';
+    pFloatingPanel.style.display = 'none';
     clearLocationHash();
-}
-
-const showNotification = (message) => {
-    const noti = document.getElementById('notification');
-    noti.textContent = message;
-    noti.classList.add('show');
-    setTimeout(() => noti.classList.remove('show'), 3000);
 }
 
 const handleHashChange = () => {
@@ -72,7 +68,7 @@ const handleHashChange = () => {
             console.log(data);
             showPanel(data);
         })
-        .catch(() => showNotification(`El contenido "${key}" no existe.`));
+        .catch(() => showNotif(true, `El contenido "${key}" no existe.`));
 }
 
 const generarContenido = (datos) => {
@@ -149,11 +145,15 @@ const openPanel = (key) => {
     location.hash = `#oD=${key}`;
 }
 
-// Cerrar panel con Escape
+// Escuchas
+window.addEventListener('load', ()=>{
+    pPanelTitle = document.getElementById('panel-title');
+    pPanelContent = document.getElementById('panel-content');
+    pOverlay = document.getElementById('overlay');
+    pFloatingPanel = document.getElementById('floating-panel');
+    handleHashChange();
+});
+window.addEventListener('hashchange', handleHashChange);
 window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closePanel();
 });
-
-// Escuchas
-window.addEventListener('hashchange', handleHashChange);
-window.addEventListener('load', handleHashChange);
