@@ -69,8 +69,19 @@
             <section class="description">
                 <p>Radio online con emisiones que exploran bytebeat, síntesis algorítmica, glitches, livecoding, noise, ambient y otras formas experimentales de arte sonoro. A veces automatizado, a veces en vivo. Siempre impredecible —por ahora.</p>
                 <br>
-                <p>También puedes escucharla en desde el
-                    <a href="https://giss.tv/player/earp.php?url=https://giss.tv:667/ganuritov.ogg" target="_blank">reproductor oficial de GissTv</a> o directamente desde el <a href="https://giss.tv:667/ganuritov.ogg" target="_blank">propio streaming</a>.
+                <p>Esta radio se distribuye gracias a
+                    <a href="https://giss.tv/" target="_blank">
+                        <img src="./img/giss-logo_vector_white.svg" width="30">
+                        <strong>G.I.S.S.</strong>
+                    </a>
+                    También podés escucharla desde su
+                    <a id="linkGissPlayer" href="https://giss.tv/player/earp.php?url=" target="_blank"><strong>reproductor oficial</strong></a>
+                    o directamente desde el
+                    <a id="linkStream" href="https://giss.tv:667/ganuritov.ogg" target="_blank"><strong>propio streaming</strong></a>
+                    <script>
+                     window.linkGissPlayer.href += URL_STREAM;
+                     window.linkStream.href = URL_STREAM;
+                    </script>
                 </p>
             </section>
             <section class="info">
@@ -147,12 +158,8 @@
                      </label>
                 </div>
 
-                <div class="separator-line"></div>
-
-                <div class="option-link">
-                    <a href="" id="streamDirecto" target="_blank">Fuente del stream</a>
-                    <script>window.streamDirecto.href = URL_STREAM;</script>
-                </div>
+                <!-- <div class="separator-line"></div>
+                -->
 
                 <!-- <div class="option-link">
                      <a href="#oD=ayuda"  target="_blank">Ayuda</a>
