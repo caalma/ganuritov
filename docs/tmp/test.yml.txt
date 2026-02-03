@@ -1,8 +1,0 @@
----
-
-titulo: 'test'
-autoria: 'caalma'
-instante: 2026-02-02-23-37-08
-
-
-...
