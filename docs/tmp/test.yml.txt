@@ -6,12 +6,3 @@ instante: 2026-02-02-23-37-08
 
 
 ...
-
-
-# titulo
-
-> nada importante
-
-1. a
-2. b
-3. c
